@@ -5,6 +5,6 @@ import (
 )
 
 func main() {
-	var cli blockchain.CLI
+	cli := blockchain.NewCLI()
 	cli.Run()
 }

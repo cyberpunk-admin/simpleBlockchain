@@ -21,7 +21,7 @@ type ProofOfWork struct {
 func (pow *ProofOfWork) prepareData(nonce int64) []byte {
 	return bytes.Join([][]byte{
 		pow.block.PrevBlockHash,
-		pow.block.Data,
+		pow.block.HashTransaction(),
 		IntToHex(pow.block.Timestamp),
 		IntToHex(int64(targetBits)),
 		IntToHex(nonce),
@@ -32,7 +32,7 @@ func (pow *ProofOfWork) Run() (int64, []byte){
 	var hashInt big.Int
 	var hash [32]byte
 	var nonce int64 = 0
-	fmt.Printf("Mining the blockchain containing %s\n", pow.block.Data)
+	fmt.Println("Mining the blockchain")
 	for nonce < maxNonce {
 		data := pow.prepareData(nonce)
 		hash = sha256.Sum256(data)
